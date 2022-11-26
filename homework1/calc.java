@@ -5,6 +5,11 @@ import java.util.List;
 
 public class calc {
 
+/**
+* Метод получает строку с математическим примером,
+* проверяет на соответствие формату и возвращает список для обработки
+* @return - список: число, знак, число (List<String>)
+*/ 
     static List<String> getData() {
         String userString;
         Scanner iScanner = new Scanner(System.in);
@@ -21,9 +26,9 @@ public class calc {
     }
 
 
-
-
-
+/**
+* Простейший калькулятор
+*/ 
     public static void main(String[] args) {
         List<String> userData = getData();
         double a = Double.parseDouble(userData.get(0));
