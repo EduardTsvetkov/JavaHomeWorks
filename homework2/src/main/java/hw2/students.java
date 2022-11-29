@@ -15,13 +15,16 @@ import org.json.simple.parser.ParseException;
  */
 public class students {
     public static void main(String[] args) {
+        String path = "grades.json";
+        System.out.println();
+        System.out.printf("Читаем данные из файла %s .\n", path);
 
         JSONParser parser = new JSONParser();
 
-        try {     
-            
-            JSONArray jArr = (JSONArray) parser.parse(new FileReader("grades.json"));
+        try {
+            JSONArray jArr = (JSONArray) parser.parse(new FileReader(path));
 
+            System.out.println("Формируем сообщения с оценками:");
             for (Object o : jArr)
             {
                 JSONObject person = (JSONObject) o;
@@ -38,5 +41,6 @@ public class students {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        System.out.println();
     }
 }
