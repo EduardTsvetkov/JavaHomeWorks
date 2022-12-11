@@ -1,6 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class queens {
+    public static Set<ArrayList<int[]>> mySet = new HashSet<>();
     public static int[] row = new int[8];
     public static int count;
 
@@ -117,6 +120,7 @@ public class queens {
                     count++;
                     System.out.printf("Решение № %d\n", count);
                     showBoard(mainBoard);
+                    mySet.add(mainBoard);
                     mainBoard = arrayCopy(tempBoard);                     
                     continue;
                 }     
@@ -128,6 +132,7 @@ public class queens {
                 }                               
             }    
         }
+        
     }
 
 
@@ -136,6 +141,6 @@ public class queens {
         count = 0;
         clearBoard(board);
         fillQueens(board, 0);
-
+        System.out.printf("Всего %d уникальных решения\n", mySet.size());
     }
 }
