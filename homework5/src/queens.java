@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class queens {
-
     public static int[] row = new int[8];
+    public static int count;
 
     /**
     * Метод очищает доску
@@ -10,12 +10,18 @@ public class queens {
     * @param b - шахматная доска (ArrayList<int[]>)
     */  
     public static void clearBoard(ArrayList<int[]> b) {
-        for(int i = 0; i <8 ; i++){
-            row = new int[8];
-            b.add(row);
-        } 
+        if (b.size() == 0) {
+            for(int i = 0; i < 8 ; i++){
+                row = new int[8];
+                b.add(row);
+            }             
+        } else {
+            for(int i = 0; i < 8 ; i++){
+                row = new int[8];
+                b.set(i, row);
+            } 
+        }
     }
-
 
     /**
     * Метод показывает доску
@@ -28,16 +34,18 @@ public class queens {
                 System.out.printf(" %d",row[j]);
             }
             System.out.println();
-        }        
+        }      
+        System.out.println();  
     }
+
     /**
     * Метод проверяет свободные ячейки в указанной линии на доске
     * @param b - шахматная доска (ArrayList<int[]>)
     * @param lineNum - номер проверяемой линн шахматной доски (int)    
     * @return - индекс первой свободной ячейки или -1 если все заняты (int)
     */
-    public static int checkNextLine(ArrayList<int[]> b, int lineNum) {
-        row = b.get(lineNum);
+    public static int checkNextLine(ArrayList<int[]> b, int num) {
+        row = b.get(num);
         for (int i = 0; i < 8; i++) {
             if (row[i] == 0) {
                 return i;
@@ -45,7 +53,6 @@ public class queens {
         }
         return -1;       
     }
-
 
     /**
     * Метод заполняет единицами ячейки, попадающие под удар ферзя,
@@ -74,25 +81,61 @@ public class queens {
             b.set(i, row); //  меняем на измененную            
         }
     }
-    
+      
+    /**
+    * Метод возвращает копию списка
+    * @param arr - исходный список - шахматная доска 8х8 (ArrayList<int[]>)
+    * @return - копия исходного списка (ArrayList<int[]>)
+    */
+    public static ArrayList<int[]> arrayCopy(ArrayList<int[]> arr) {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        int[] arrLine = new int[8];     
+        
+        for (int i = 0; i < arr.size(); i++) {
+            int[] rezLine = new int[8];
+            arrLine = arr.get(i);
+            System.arraycopy (arrLine, 0, rezLine, 0, 8);
+            result.add(rezLine);       
+        }
+        return result;  // можно переделать, чтоб возвращал true/false
+    }
+
+    /**
+    * Метод заполняет (рекурсивно) шахматную доску небьющимися ферзями
+    * @param mainBoard - шахматная доска lдля заполнения на текущем этапе (ArrayList<int[]>)
+    * @param lineNum - номер линии доски для заполнения (int)
+    */
+    public static void fillQueens(ArrayList<int[]> mainBoard, int lineNum) {
+        
+        ArrayList<int[]> tempBoard = new ArrayList<int[]>();
+        tempBoard = arrayCopy(mainBoard);  // копируем состояние доски на начало этапа
+        int[] line = tempBoard.get(lineNum);                
+        for (int j = 0; j < 8; j++) {                   
+            if (line[j] == 0) {
+                fillWarCell(mainBoard, lineNum, j);  // ставим ферзя и отмечаем занятые ячейки
+                if (lineNum == 7) {  // дошли до последнего ряда, есть решение
+                    count++;
+                    System.out.printf("Решение № %d\n", count);
+                    showBoard(mainBoard);
+                    mainBoard = arrayCopy(tempBoard);                     
+                    continue;
+                }     
+                if (checkNextLine(tempBoard, lineNum + 1) == -1) {  // в следующем ряду нет свободных ячеек
+                    mainBoard = arrayCopy(tempBoard);
+                } else {
+                    fillQueens(mainBoard, lineNum + 1);  // идем перебирать следующий ряд
+                    mainBoard = arrayCopy(tempBoard);  // возвращаем доску в состояние начала этапа
+                }                               
+            }    
+        }
+    }
 
 
     public static void main(String[] args) {
         ArrayList<int[]> board = new ArrayList<>();
-
-        clearBoard(board);     
-     
-        fillWarCell(board, 0, 7);
-        fillWarCell(board, 3, 6);
-        fillWarCell(board, 5, 4);
-        fillWarCell(board, 0, 2);
-        showBoard(board);
-
-        for (int i = 0; i < 8; i++) {
-            System.out.println(checkNextLine(board, i));
-        }
-
-
+        count = 0;
+        clearBoard(board);
+        fillQueens(board, 0);
 
     }
 }
