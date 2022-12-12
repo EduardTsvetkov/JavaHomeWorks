@@ -1,26 +1,20 @@
 import java.util.Arrays;
 
-// Java program for implementation of Heap Sort
 public class heapsort
 {   
- 
     public static void sort(int arr[])
     {
         int len = arr.length;
  
-        // Build max heap
         for (int i = len / 2 - 1; i >= 0; i--) {
           heapify(arr, len, i);
         }
- 
-        // Heap sort
         for (int i = len - 1; i >= 0; i--)
         {
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
  
-            // Heapify root element
             heapify(arr, i, 0);
         }
     }
@@ -29,13 +23,12 @@ public class heapsort
     * Метод ищет в "треугольнике" (родительский узел и дочерние левый и правый узлы)
     * максимальное значение и ставит его в родителя.
     * @param arr - сортируемый массив (int[])
-    * @param n - (int)  
+    * @param n - длинна текущего массива (int)  
     * @param i - индекс максималного элемента треугольника с предыдущей итерации (int)        
     * @return - индекс первой свободной ячейки или -1 если все заняты (int)
     */    
     public static void heapify(int arr[], int n, int i)
     {
-        // Find largest among root, left child and right child
         int indMax = i; 
         int indL = 2*i + 1; 
         int indR = 2*i + 2;  
