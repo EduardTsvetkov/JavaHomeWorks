@@ -1,0 +1,8 @@
+Macbook Pro, Macbook, 16, 512, MacOS, Space Gray, 200000
+ASUS Zenbook black, ASUS, 64, 256, Windows, Black, 150000
+ASUS ROG, ASUS, 32, 512, Windows, Black, 160000
+Huaway Matebook, Huaway, 8, 512, Linux, Silver, 90000
+Sony VAIO, Sony, 32, 2048, Windows, Silver, 96000
+ASUS Zenbook, ASUS, 16, 512, Linux, Blue, 150000
+HP Omen, HP, 4, 512, Windows, Gray, 35000
+Acer Aspire, Acer, 16, 512, Linux, Black, 39000
