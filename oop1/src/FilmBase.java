@@ -2,15 +2,24 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class FilmBase {
 
     public ArrayList<Film> films = new ArrayList<Film>();
+    private Scanner scan;
 
     public FilmBase (String path) {
         films = GetData(path);
     }
 
+    public FilmBase (FilmBase _films, Scanner _scan) {
+        films = _films.films;
+        scan = _scan;
+    }
+    public FilmBase () {
+        
+    }   
 
 /**
 * Метод читает данные о фильмах
@@ -41,14 +50,36 @@ public class FilmBase {
     }
 
 
-
+/**
+ * Метод выводит на экран каталог фильмов
+ */
     public void ShowFilms() {
         for (Film item : films) {
-            item.ShowFilmInfo();
-            
+            item.ShowFilmInfo();   
+        }  
+    }
+
+    public void FindFilms(ArrayList<Film> films, Scanner scan) {
+        FilmBase result = new FilmBase();
+        System.out.println("Введите строку для поиска названия фильма:");
+        String filter = scan.nextLine();
+        for (Film item : films) {
+            if (item.title.toLowerCase().contains(filter.toLowerCase())) {
+                result.films.add(item);
+            }
+              
         }
+
+        if (result.films.size() > 0) {
+            result.ShowFilms();
+        } else {
+            System.out.printf("Строка %s - в названиях фильмов не найдена\n", filter);
+        }
+        
 
         
     }
+
+
 
 }

@@ -21,7 +21,9 @@ public class Film {
         this.director = l.get(6);
         this.cast = l.get(7);
     }
-
+/**
+ * Метод показывает информацию о фильме
+ */
     public void ShowFilmInfo() {
         System.out.printf("ID: %s, %s \n", filmId, title);
         System.out.printf("%s г., %s мин., %s, %s\n", year, duration, country, genre);
