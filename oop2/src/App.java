@@ -2,14 +2,36 @@ import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args){
-        Db db = new Db();
-        ArrayList<Node> rel = db.fillDb();
+        DbApi dbApi = new DbApi();
+        dbApi.initManual();
+        Db db = dbApi.getDb();
+
+        Menu menu = new Menu();
+        boolean flag = true;
+        while (flag) {
+            
+            switch (menu.ShowMenu()) {
+                case "1":
+                    db.printNodes();
+                    break;
+                case "2":
+                    db.printHumans();
+                    break;
+                case "3":
+                    Finder find = new Finder(db) ;
+                    find.getFamily();
+                    break;
+                     
+                case "9":
+                    flag = false;
+                    System.out.println("Всего доброго!\n");
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
-        for (Node item : rel) {
-            System.out.println((String.format("%s %s является %s для %s %s", item.h1.firstName, item.h1.lastName, item.rel1, item.h2.firstName, item.h2.lastName)));
-            System.out.println((String.format("%s %s является %s для %s %s", item.h2.firstName, item.h2.lastName, item.rel2, item.h1.firstName, item.h1.lastName)));
-
+    GlobalScaner.closeInput();
     }
-}
 }

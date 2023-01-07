@@ -1,19 +1,17 @@
 public class Node {
-    Human h1;
-    Human h2;
-    Relationship rel1;
-    Relationship rel2;
+    public int humanId1;
+    public int humanId2;
+    public Relationship relation;
+    
     /**
      * Конструктор связи
-     * @param _h1
-     * @param _rel1
-     * @param _rel2
-     * @param _h2
+     * @param id1 - идентификатор первого человека
+     * @param rel - вид связи со вторым человеком
+     * @param id2 - идентификатор второго человека
      */
-    public Node(Human _h1, Relationship _rel1, Relationship _rel2, Human _h2) {
-        this.h1 = _h1;
-        this.h2 = _h2;
-        this.rel1 = _rel1;
-        this.rel2 = _rel2;
+    public Node(int id1, Relationship rel, int id2) {
+        this.humanId1 = id1;
+        this.humanId2 = id2;
+        this.relation = rel;
     }
 }

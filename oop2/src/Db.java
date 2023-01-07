@@ -1,22 +1,41 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Описание БД
+ */
 public class Db {
-    public ArrayList<Node> fillDb() {
-        ArrayList<Node> relations = new ArrayList<>();
+    public HashMap<Integer, Human> humans = new HashMap<>();
+    public ArrayList<Node> nodes = new ArrayList<>();
 
-        relations.add(new Node(new Human("Эдуард", "Цветков", "м", "52"), Relationship.HUSBAND, Relationship.WIFE,
-                        new Human("Диана", "Цветкова", "ж", "50"))); 
-        relations.add(new Node(new Human("Эдуард", "Цветков", "м", "52"), Relationship.FATHER, Relationship.SON, new Human("Максим", "Цветков", "м", "25"))); 
-        relations.add(new Node(new Human("Диана", "Цветкова", "ж", "50"), Relationship.MOTHER, Relationship.SON, new Human("Максим", "Цветков", "м", "25")));
-        relations.add(new Node(new Human("Эдуард", "Цветков", "м", "52"), Relationship.FATHER, Relationship.DAUGHTER, new Human("Юлия", "Цветкова", "ж", "29"))); 
-        relations.add(new Node(new Human("Диана", "Цветкова", "ж", "50"), Relationship.MOTHER, Relationship.DAUGHTER, new Human("Юлия", "Цветкова", "ж", "29")));
-        relations.add(new Node(new Human("Юлия", "Цветкова", "ж", "29"), Relationship.SISTER, Relationship.BROTHER, new Human("Максим", "Цветков", "м", "25")));
-         
-        return relations;
+    /**
+     * Вывод на экран списка людей
+     */
+    public void printHumans() {
+        System.out.println("Список людей");
+        for (HashMap.Entry<Integer, Human> entry : humans.entrySet()) {
+            Integer humanId = entry.getKey();
+            Human human = entry.getValue();        
+            System.out.println(String.format("%d  %s", humanId, human));
+        }
+        System.out.println("Это все имеющиеся люди");
+        System.out.println("----------------------");
     }
 
-    
-
-
+    /**
+     * Вывод на экран списка связей
+     */
+    public void printNodes() {
+        Human human1;
+        Human human2;
+        System.out.println("Список связей");
+        for (Node item : nodes) {
+            human1 = humans.get(item.humanId1);
+            human2 = humans.get(item.humanId2);
+            System.out.println(String.format("%s  является %s для  %s", 
+                                             human1, item.relation, human2));
+        }
+        System.out.println("Это все имеющиеся связи");
+        System.out.println("-----------------------");
+    }
 }

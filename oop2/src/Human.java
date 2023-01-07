@@ -1,19 +1,27 @@
 public class Human {
-    String firstName;
-    String lastName;
-    String gender;
-    String age;
+    public String firstName;
+    public String lastName;
+    public String gender;
+    public int birthYear;
+
     /**
      * Конструктор человека
-     * @param _firstName
-     * @param _lastName
-     * @param _gender
-     * @param _age
+     * @param firstName - имя
+     * @param lastName - фамилия
+     * @param gender - пол (м/ж)
+     * @param birthYear - год рождения
      */
-    Human(String _firstName, String _lastName, String _gender, String _age){
-        this.firstName = _firstName;
-        this.lastName = _lastName;
-        this.gender = _gender;
-        this.age = _age;
+    Human(String firstName, String lastName, String gender, int birthYear){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthYear = birthYear;
     }
+
+
+    @Override
+    public String toString() {
+        return String.format("%s %s %d", firstName, lastName, birthYear);
+    }
+
 }
