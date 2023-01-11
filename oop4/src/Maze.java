@@ -1,17 +1,15 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.swing.text.Highlighter.Highlight;
-
 
 /**
  * Лабиринт
  */
 public class Maze {
-    private int height;
-    private int width;
+    public int height;
+    public int width;
     // private String brick = "\u25A6\u25A6\u25A6";
-    public String brick = "%%%";
+    public String brick = "####";
     public int[][] platform;
 
     /**
@@ -40,13 +38,17 @@ public class Maze {
         for (int i = 0; i < this.height; i++) {
             for (int j = 0; j < this.width; j++) {
                 if (platform[i][j] == -1) {
-                    System.out.printf("%s",this.brick);
+                    System.out.printf("\u001B[31m%s",this.brick);
+                } else if (platform[i][j] == 1 || (platform[i][j] == -8)){
+                    System.out.printf("\u001B[32m%3d ",platform[i][j]);       
+                } else if (platform[i][j] > 1000){
+                    System.out.printf("\u001B[34m%3d ",platform[i][j] - 1000);      
                 } else {
-                    System.out.printf(" %-2d",platform[i][j]);    
+                    System.out.printf("\u001B[37m%3d ",platform[i][j]);    
                 }
                 
             }
-            System.out.println();
+            System.out.println("\u001B[0m");  // сброс цвета
         }       
     }
 
@@ -57,6 +59,7 @@ public class Maze {
     public void markCell(Cell cell) {
         platform[cell.y][cell.x] = cell.value;        
     }
+
 
     public int howAround(int x, int y, int value) {
         int result = 0;
@@ -107,29 +110,24 @@ public class Maze {
         int direction;
         ArrayList<Integer> blockedDirections = new ArrayList<>();
         Cell nextCell;
-        Cell previousCell;
+        //Cell previousCell;
         int counter = 1;
         int bricks;
         bricks = howAround(currentCell.x, currentCell.y, -1);
         if (nearBorder(currentCell))  {
-            System.out.println("У границы");
             if (bricks != 3) {
-                System.out.println("Первая точка у глухого края");
                 return;
             }
         } else {
-            System.out.println("Не у границы");
             if (bricks != 0) {
-                System.out.println("Первая точка у стены");
                 return;
             }
         }
-        markCell(currentCell);  // доделать контроль
+        markCell(currentCell);  
 
 
         while (counter < wallLength) {
             if (blockedDirections.size() == 4) {
-                System.out.println("Идти некуда");
                 break;
             }
             nextCell = new Cell();
@@ -139,13 +137,12 @@ public class Maze {
                 direction = previousDirection;
                 continue;
             }
-            // direction = 2;
+            
             nextCell.x = currentCell.x + Compass.delta.get(direction)[0];
             nextCell.y = currentCell.y + Compass.delta.get(direction)[1]; 
             if (nextCell.x < 0 || nextCell.x >= width || nextCell.y < 0 || nextCell.y >= height || platform[nextCell.y][nextCell.x] == -1) {
                 blockedDirections.add(direction);
                 direction = previousDirection;
-                System.out.println("За край или на край");
                 continue;
             }
             nextCell.value = -1;
@@ -153,7 +150,6 @@ public class Maze {
             if (onBorder(currentCell) && bricks != 3) {
                 blockedDirections.add(direction);
                 direction = previousDirection;
-                System.out.println("От стены не туда пошел");
                 continue;
             } 
             
@@ -175,12 +171,11 @@ public class Maze {
             previousDirection = direction;
 
             blockedDirections = new ArrayList<>();
-            blockedDirections.add(compass.opposite(previousDirection));  // откуда пришли - туда нельзя...
-            
+            blockedDirections.add(compass.opposite(previousDirection));  // откуда пришли - туда нельзя...  
         }
-
-
     }
     
+
+
 
 }

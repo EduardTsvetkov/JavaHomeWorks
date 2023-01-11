@@ -1,29 +1,41 @@
-import java.util.Random;
+
 
 /**
  * App
  */
 public class App {
     public static void main(String[] args) {
-        int height = 15;
-        int width = 20;
+        int height = 20;
+        int width = 30;
         Maze maze = new Maze(width, height);
-        maze.print();
-
-        Random rnd = new Random();
+        
         int x, y, length;
         Cell beginCell;
-        for (int i = 0; i < 20; i++) {
-            x = rnd.nextInt(width - 1);
-            y = rnd.nextInt(height - 1);
-            length = rnd.nextInt(width);
-            System.out.printf("x=%d y=%d l=%d\n", x, y, length);
+        for (int i = 0; i < width * height; i++) {
+            x = RandInt.randInt(1, width - 1);
+            y = RandInt.randInt(1, height - 1);
+            length = RandInt.randInt(10, 30);
             beginCell = new Cell(x, y, -1);
             maze.buildWall(beginCell, length);
         }
-
+ 
+        Wave wave = new Wave(maze);
+        wave.initDoors();
+        System.out.println("Исходный лабиринт:");
         maze.print();
 
+        wave.makeWave();
+        System.out.println();  
+        System.out.println("Лабиринт после \"волны\":");
+        maze.print();
+        System.out.println();  
+        System.out.println("Координаты выходов и расстояния до них:");
+        System.out.println(wave.exits);
+
+        wave.pathFinding(); 
+        System.out.println();  
+        System.out.println("Лабиринт после \"волны\" с кратчайшим путём:");
+        maze.print();
     }
     
 }
