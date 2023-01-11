@@ -60,7 +60,13 @@ public class Maze {
         platform[cell.y][cell.x] = cell.value;        
     }
 
-
+    /**
+     * 
+     * @param x - координата X
+     * @param y - координата Y
+     * @param value - искомое значение
+     * @return - количество найденных 
+     */
     public int howAround(int x, int y, int value) {
         int result = 0;
         int newX, newY;
@@ -77,6 +83,11 @@ public class Maze {
         return result;
     }
 
+    /**
+     * Метод проверяет находится ли ячейка на границе
+     * @param cell - ячейка
+     * @return - да/нет (true/false)
+     */
     public boolean onBorder(Cell cell) {
         if (cell.x == 0 || cell.x == width - 1 || cell.y == 0 || cell.y == height - 1) {
             return true;
@@ -84,6 +95,11 @@ public class Maze {
         return false;
     }
 
+    /**
+     * Метод проверяет находится ли ячейка у границы
+     * @param cell - ячейка
+     * @return - да/нет (true/false)
+     */
     public boolean nearBorder(Cell cell) {
         int newX;
         int newY;
@@ -97,7 +113,6 @@ public class Maze {
         return false;
     }
 
-
     /**
      * Метод "строит стену"
      * @param currentCell - начальная точка
@@ -106,76 +121,130 @@ public class Maze {
     public void buildWall(Cell currentCell, int wallLength) {
         Random rnd = new Random();
         Compass compass = new Compass();
-        int previousDirection = 99;
+        int previousDirection = -1;
         int direction;
         ArrayList<Integer> blockedDirections = new ArrayList<>();
         Cell nextCell;
-        //Cell previousCell;
         int counter = 1;
         int bricks;
-        bricks = howAround(currentCell.x, currentCell.y, -1);
-        if (nearBorder(currentCell))  {
-            if (bricks != 3) {
-                return;
-            }
-        } else {
-            if (bricks != 0) {
-                return;
-            }
+        boolean flag = true;
+        boolean begin = true;
+        boolean end = false;
+        boolean beginNearBorder = false;
+        int newX, newY, newValue;
+        // проверяем первую точку (можно ли там поставить стену)
+        if (platform[currentCell.y][currentCell.x] == -1) {
+            return;
         }
-        markCell(currentCell);  
 
+        bricks = howAround(currentCell.x, currentCell.y, -1);  // считаем сколько вокруг начальной ячейки "кирпичей"
+        if (nearBorder(currentCell))  {
+            if (bricks == 3) {  // кроме "стены" рядом ничего, годится
+                markCell(currentCell); 
+                beginNearBorder = true;
+            } else {
+                return;
+            }          
+        } else if (bricks == 0) {  // рядом ничего, годится           
+                markCell(currentCell); 
+        } else {
+            return;
+        }
+        
+        while (counter < wallLength && blockedDirections.size() < 4 && !end) {  // продолжаем "змею" стены
 
-        while (counter < wallLength) {
-            if (blockedDirections.size() == 4) {
-                break;
+            direction = rnd.nextInt(4);  // предполагаемое направление движения по "компасу"
+            // direction = 3;  // тестовое направление вниз
+            if (begin) {  // следующая за первой ячейка
+                previousDirection = direction;
             }
-            nextCell = new Cell();
-            direction = rnd.nextInt(4);
 
-            if (blockedDirections.contains(direction)) {  // туда нельзя
+            if (blockedDirections.contains(direction)) {  // это направление было проверено ранее и заблокировано
+                flag = false;
                 direction = previousDirection;
                 continue;
+            }
+
+            // создаем ячейку в предполагаемом направлении и далее проверяем ее
+            newX = currentCell.x + Compass.delta.get(direction)[0];
+            newY = currentCell.y + Compass.delta.get(direction)[1]; 
+            newValue = -1;
+            nextCell = new Cell(newX, newY, newValue);
+
+            if (onBorder(nextCell)) {  // вышли на границу, блокируем это направление и возвращаемся в исходное
+                flag = false;
+                blockedDirections.add(direction);
+                direction = previousDirection;
+                continue;
+            }
+           
+            bricks = howAround(nextCell.x, nextCell.y, nextCell.value);  // сколько "кирпичей" уже вокруг предполагаемой ячейки
+
+            if (direction == previousDirection) {  // движемся в прежнем направлении
+
+                if (nearBorder(nextCell))  {
+                    if (beginNearBorder) {
+                        if (begin) {
+                            flag = false;
+                        } else {
+                            flag = false; 
+                            end = true;
+                        }
+
+                    } else {
+                        if (bricks == 4) {  // кроме "стены" и хвоста рядом ничего (начало не у границы), годится
+                            flag = true; 
+                            end = true;
+                        } else {
+                            flag = false;
+                        }
+                    }
+
+                } else {
+                    if (bricks == 1) {  // рядом только хвост, годится    
+                        flag = true;
+                    } else {
+                        flag = false;
+                    }
+                }
+
+            } else {
+                if (nearBorder(nextCell))  {
+                    if (bricks == 5 && !beginNearBorder) {  // кроме "стены" и хвоста рядом ничего, годится
+                        flag = true; 
+                        end = true;
+                    } else {
+                        flag = false;
+                    }
+                } else if (bricks == 2) {  // рядом только хвост, годится           
+                    flag = true;  
+                } else {
+                    flag = false;
+                }
+            }
+
+            if (flag) {
+                if (nextCell.x > width - 1 || nextCell.y > height - 1) {
+                    break;
+                }
+
+                markCell(nextCell);
+
+                counter++;
+                currentCell = nextCell;
+                previousDirection = direction;
+    
+                blockedDirections = new ArrayList<>();
+                blockedDirections.add(compass.opposite(previousDirection));  // откуда пришли - туда нельзя...         
+                if (begin) {  // следующая за первой ячейка (был первый шаг)
+                    begin = false;
+                }         
+            } else {
+                blockedDirections.add(direction);
+                direction = previousDirection;
             }
             
-            nextCell.x = currentCell.x + Compass.delta.get(direction)[0];
-            nextCell.y = currentCell.y + Compass.delta.get(direction)[1]; 
-            if (nextCell.x < 0 || nextCell.x >= width || nextCell.y < 0 || nextCell.y >= height || platform[nextCell.y][nextCell.x] == -1) {
-                blockedDirections.add(direction);
-                direction = previousDirection;
-                continue;
-            }
-            nextCell.value = -1;
-            bricks = howAround(nextCell.x, nextCell.y, -1);
-            if (onBorder(currentCell) && bricks != 3) {
-                blockedDirections.add(direction);
-                direction = previousDirection;
-                continue;
-            } 
-            
-            if (previousDirection == direction && bricks != 1) {
-                blockedDirections.add(direction);
-                direction = previousDirection;
-                continue;
-            }
-
-            if (previousDirection != direction && (bricks != 2 && bricks != 1)) {
-                blockedDirections.add(direction);
-                direction = previousDirection;
-                continue;
-            }            
-
-            markCell(nextCell);
-            counter++;
-            currentCell = nextCell;
-            previousDirection = direction;
-
-            blockedDirections = new ArrayList<>();
-            blockedDirections.add(compass.opposite(previousDirection));  // откуда пришли - туда нельзя...  
         }
     }
-    
-
-
 
 }
