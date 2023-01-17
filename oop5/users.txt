@@ -1,0 +1,7 @@
+1;admin;admin;ЦВЕТКОВ;ЭДУАРД;1970;ADMIN
+2;ivanov;12345;ИВАНОВ;ИВАН;1965;TEACHER
+3;petrov;12345;ПЕТРОВ;ПЕТР;1960;TEACHER
+4;sidorov;12345;СИДОРОВ;СИДОР;1990;STUDENT
+5;mihailov;12345;МИХАЙЛОВ;МИХАИЛ;1995;STUDENT
+6;pavlov;54321;ПАВЛОВ;ПАВЕЛ;1970;TEACHER
+7;sergeev;12345;СЕРГЕЕВ;СЕРГЕЙ;2005;STUDENT
