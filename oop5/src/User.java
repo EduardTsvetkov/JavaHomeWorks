@@ -1,3 +1,6 @@
+/**
+ * Пользователь системы (наследник персоны)
+ */
 public class User extends Person {
     private String login;
     private String password;

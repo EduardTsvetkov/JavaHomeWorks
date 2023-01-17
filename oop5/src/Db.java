@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Описание БД
+ * Описание базы данных
  */
 public class Db {
     public HashMap<Integer, User> users;
