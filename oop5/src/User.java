@@ -32,6 +32,13 @@ public class User extends Person {
         return this.login;
     }
 
+    /**
+     * Метод возвращает пароль пользователя
+     * @return - пароль
+     */
+    public String getPassword() {
+        return this.password;
+    }
 
     /**
      * Метод устанавливает пароль пользователю
@@ -41,10 +48,18 @@ public class User extends Person {
         this.password = password;
     }
   
+    /**
+     * Метод возвращает тип пользователя
+     * @return - тип пользователя
+     */
+    public AccountType getType() {
+        return this.type;
+    }
+
     @Override
     public String toString() {
         return String.format("%s %s %d, %s, %s", 
-                             super.firstName, super.lastName, super.birthYear, this.login, type);
+                             super.lastName, super.firstName, super.birthYear, this.login, type);
     }
 
 

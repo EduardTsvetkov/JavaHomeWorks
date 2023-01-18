@@ -15,4 +15,9 @@ public class HomeWork {
         this.topic = topic;
     }
 
+
+    @Override
+    public String toString() {
+        return String.format("%s %s", science, topic);
+    }
 }

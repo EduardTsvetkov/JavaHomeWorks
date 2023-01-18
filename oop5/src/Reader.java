@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
@@ -13,8 +14,9 @@ public class Reader {
      */
     public static ArrayList<String> readFile(String f) {
         ArrayList<String> result = new ArrayList<String>();
+
         try {
-            BufferedReader br = new BufferedReader(null);
+            BufferedReader br = new BufferedReader(new FileReader(f));
             String str;
             while ((str = br.readLine()) != null) { 
                 result.add(str);

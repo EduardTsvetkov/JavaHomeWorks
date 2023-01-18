@@ -20,4 +20,10 @@ public class Achievement {
         this.score = score;
         this.teacherId = teacherId;
     }
+
+    @Override
+    public String toString() {
+        // навести бы красоту
+        return String.format("%d %d %d %d", HomeWorkId, studentId, score, teacherId);
+    }
 }

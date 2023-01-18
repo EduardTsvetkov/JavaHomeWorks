@@ -21,7 +21,7 @@ abstract public class Person {
 
     @Override
     public String toString() {
-        return String.format("%s %s %d", firstName, lastName, birthYear);
+        return String.format("%s %s %d", lastName, firstName, birthYear);
     }
 
 }
