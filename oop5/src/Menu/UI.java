@@ -1,6 +1,11 @@
+package Menu;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import Core.GlobalScaner;
+import Core.User;
+import DB.Db;
 
 public class UI {
     private Scanner scan = GlobalScaner.getInput();
@@ -46,12 +51,11 @@ public class UI {
             ID = authentication();
             if (ID >= 0) {
                 user = db.users.get(ID);
-                System.out.println(String.format("%s %s,", user.firstName, user.lastName));
                 System.out.print("\033[H\033[2J");  // "стереть" экран
                 System.out.println("ДОБРО ПОЖАЛОВАТЬ!");
                 flag = true;
             } else {
-                System.out.println("Не верный логин/пароль.");
+                System.out.println("Неверный логин/пароль.");
                 System.out.printf("Осталось попыток: %d \n", --count);
             }            
         }

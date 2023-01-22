@@ -1,5 +1,8 @@
+package DbInit;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import Core.Achievement;
 
 /**
  * Парсер списка, полученного из файла с оценками ДЗ

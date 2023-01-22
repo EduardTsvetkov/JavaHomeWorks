@@ -1,3 +1,6 @@
+package Core;
+import DB.ScienceType;
+
 /**
  * Домашнее задание
  */

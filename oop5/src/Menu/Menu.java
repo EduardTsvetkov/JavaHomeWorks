@@ -1,6 +1,9 @@
+package Menu;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
+
+import Core.GlobalScaner;
 
 
 /**

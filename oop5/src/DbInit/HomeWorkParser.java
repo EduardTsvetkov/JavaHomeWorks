@@ -1,6 +1,10 @@
+package DbInit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import Core.HomeWork;
+import DB.ScienceType;
 
 /**
  * Парсер списка, полученного из файла с домашними заданиями

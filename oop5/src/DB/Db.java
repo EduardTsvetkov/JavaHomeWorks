@@ -1,6 +1,11 @@
+package DB;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import Core.Achievement;
+import Core.HomeWork;
+import Core.User;
 
 /**
  * Описание базы данных

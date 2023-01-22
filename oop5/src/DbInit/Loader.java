@@ -1,8 +1,10 @@
+package DbInit;
+import DB.Db;
 
 /**
  * Получение базы данных
  */
-public class DbApi {
+public class Loader {
     public Db db;
     private String pathUsers = "users.txt";
     private String pathHworks = "hworks.txt";
@@ -14,7 +16,7 @@ public class DbApi {
      * @param pathHworks - путь к файлу с домашними заданиями
      * @param pathAchievements - путь к файлу с достижениями
      */
-    public DbApi(String pathUsers, String pathHworks, String pathAchievements) {
+    public Loader(String pathUsers, String pathHworks, String pathAchievements) {
         this.pathUsers = pathUsers;
         this.pathHworks = pathHworks;
         this.pathAchievements = pathAchievements;
@@ -28,7 +30,6 @@ public class DbApi {
         db.users = UsersParser.getUsers(pathUsers);
         db.homeWorks = HomeWorkParser.getHomeWorks(pathHworks);
         db.achievements = AchievementsParser.getAchievements(pathAchievements);
-
 
     }
 

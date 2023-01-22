@@ -1,6 +1,10 @@
+package DbInit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import Core.User;
+import DB.AccountType;
 
 /**
  * Парсер списка, полученного из файла с пользователями

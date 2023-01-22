@@ -1,3 +1,6 @@
+package Core;
+import DB.AccountType;
+
 /**
  * Пользователь системы (наследник персоны)
  */

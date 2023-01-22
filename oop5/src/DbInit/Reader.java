@@ -1,3 +1,4 @@
+package DbInit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -26,8 +27,8 @@ public class Reader {
             System.out.println(e.getMessage());
         }
         finally {
-            System.out.printf("Загрузка данных из файла %s завершена!\n", f);
-            System.out.println("-------------------------------------");
+            System.err.printf("Загрузка данных из файла %s завершена!\n", f);
+            System.err.println("-------------------------------------");
         }
 
         return result; 
