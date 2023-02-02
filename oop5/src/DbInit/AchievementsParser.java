@@ -20,9 +20,9 @@ public class AchievementsParser {
         for (String str : Reader.readFile(f)) {
             temp = new ArrayList<String>(Arrays.asList(str.split(";")));
             Achievement achievement = new Achievement(Integer.parseInt(temp.get(0)), 
-                                                      Integer.parseInt(temp.get(1)), 
+                                                      temp.get(1), 
                                                       Integer.parseInt(temp.get(2)), 
-                                                      Integer.parseInt(temp.get(3)));
+                                                      temp.get(3));
             result.add(achievement);
         }
         

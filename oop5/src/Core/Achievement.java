@@ -4,9 +4,9 @@ package Core;
  */
 public class Achievement {
     int HomeWorkId;
-    int studentId;
+    String student;
     int score;
-    int teacherId;
+    String teacher;
 
     /**
      * Конструктор достижения
@@ -15,16 +15,16 @@ public class Achievement {
      * @param score - оценка
      * @param teacherId - ID учителя
      */
-    public Achievement(int HomeWorkId, int studentId, int score, int teacherId) {
+    public Achievement(int HomeWorkId, String student, int score, String teacher) {
         this.HomeWorkId = HomeWorkId;
-        this.studentId = studentId;
+        this.student = student;
         this.score = score;
-        this.teacherId = teacherId;
+        this.teacher = teacher;
     }
 
     @Override
     public String toString() {
         // навести бы красоту
-        return String.format("%d %d %d %d", HomeWorkId, studentId, score, teacherId);
+        return String.format("ДЗ id=%d, студент-%s, оценка-%d, преподаватель-%s", HomeWorkId, student, score, teacher);
     }
 }

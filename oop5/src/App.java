@@ -2,6 +2,7 @@ import DB.Db;
 import DbInit.Loader;
 import Menu.UI;
 
+
 public class App {
     public static void main(String[] args) {
         
@@ -9,9 +10,12 @@ public class App {
         loader.initDb();
         Db db = loader.getDb();
         UI ui = new UI(db);
-        
+                
         ui.identification();
-        ui.mainMenu();
+        while (true) {
+            ui.mainMenu();
+        }
+        
 
 
 

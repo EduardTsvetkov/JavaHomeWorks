@@ -1,4 +1,5 @@
 package DbInit;
+
 import DB.Db;
 
 /**
@@ -30,7 +31,6 @@ public class Loader {
         db.users = UsersParser.getUsers(pathUsers);
         db.homeWorks = HomeWorkParser.getHomeWorks(pathHworks);
         db.achievements = AchievementsParser.getAchievements(pathAchievements);
-
     }
 
     public Db getDb() {

@@ -16,16 +16,18 @@ public class UsersParser {
      * @param f
      * @return
      */
-    public static HashMap<Integer, User> getUsers(String f) {
-        HashMap<Integer, User> result = new HashMap<Integer, User>();
+    public static HashMap<String, User> getUsers(String f) {
+        HashMap<String, User> result = new HashMap<String, User>();
         ArrayList<String> temp = new ArrayList<String>();
 
         for (String str : Reader.readFile(f)) {
             temp = new ArrayList<String>(Arrays.asList(str.split(";")));
-            User user = new User(temp.get(4), temp.get(3), Integer.parseInt(temp.get(5)), 
-                                    temp.get(1), temp.get(2), AccountType.valueOf(temp.get(6)));
+            User user = new User(temp.get(3), temp.get(2), Integer.parseInt(temp.get(4)), 
+                                    temp.get(1), AccountType.valueOf(temp.get(5)));
 
-            result.put(Integer.parseInt(temp.get(0)), user);
+            result.put(temp.get(0), user);
+            
+
         }
 
         return result; 

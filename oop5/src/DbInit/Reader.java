@@ -28,7 +28,6 @@ public class Reader {
         }
         finally {
             System.err.printf("Загрузка данных из файла %s завершена!\n", f);
-            System.err.println("-------------------------------------");
         }
 
         return result; 
