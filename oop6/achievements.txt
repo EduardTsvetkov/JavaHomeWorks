@@ -1,0 +1,13 @@
+1;sidorov;5;ivanov
+1;mihailov;4;ivanov
+2;sidorov;4;ivanov
+3;sidorov;5;ivanov
+3;mihailov;4;ivanov
+4;sidorov;5;pavlov
+4;mihailov;4;pavlov
+6;mihailov;5;pavlov
+8;sidorov;5;petrov
+6;sidorov;3;pavlov
+2;mihailov;3;ivanov
+5;mihailov;5;petrov
+1;sergeev;3;ivanov
