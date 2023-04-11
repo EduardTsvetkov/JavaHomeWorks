@@ -1,8 +1,8 @@
 public class Node {
-    private Color color;
-    private int value;
-    private Node leftChild;
-    private Node rightChild;
+    public Color color;
+    public int value;
+    public Node leftChild;
+    public Node rightChild;
 
     public Node(int value) {
         this.value = value;
@@ -40,4 +40,11 @@ public class Node {
     public void setRightChild(Node rightChild) {
         this.rightChild = rightChild;
     }
+
+
+    @Override
+    public String toString(){
+        return String.format("%d-%s ", value, color);
+    }
+
 }

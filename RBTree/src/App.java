@@ -26,6 +26,8 @@ public class App {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+		myTree.printTree();
+		
 	}
 	
 	private static boolean is_numeric(String string) {
