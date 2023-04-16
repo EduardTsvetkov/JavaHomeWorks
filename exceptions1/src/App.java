@@ -26,6 +26,14 @@ public class App {
         System.out.println(Arrays.toString(resArray));
     }
 
+
+    /**
+     * Метод возвращает поэлементную разницу одинаковых по размеру массивов
+     * либо пустой массив (при разных размерах или пустых массивах).
+     * @param arr1 - массив с уменьшаемыми
+     * @param arr2 - массив с вычитаемыми
+     * @return - массив с разностями
+     */
     private static int[] difArray(int[] arr1, int[] arr2) {
         if (arr1 == null || arr2 == null || arr1.length != arr2.length) {
             int[] result = new int[] {};
@@ -39,6 +47,14 @@ public class App {
         }       
     }
 
+
+    /**
+     * Метод возвращает поэлементное частное одинаковых по размеру массивов
+     * либо "бросает" исключения (в том числе при делении на 0).
+     * @param arr1 - массив с уменьшаемыми
+     * @param arr2 - массив с вычитаемыми
+     * @return - массив с разностями
+     */    
     private static int[] divArray(int[] arr1, int[] arr2) {
         if (arr1 == null || arr2 == null || arr1.length != arr2.length) {
             throw new RuntimeException("Массивы разниго размера или пустые!");
